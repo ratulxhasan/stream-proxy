@@ -12,9 +12,10 @@ module.exports = async (req, res) => {
     });
 
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Content-Type', response.headers.get('content-type'));
+    res.setHeader('Content-Type', response.headers.get('content-type') || 'application/vnd.apple.mpegurl');
     response.body.pipe(res);
   } catch (err) {
+    console.error('Proxy error:', err);
     res.status(500).send('Stream fetch failed');
   }
 };
